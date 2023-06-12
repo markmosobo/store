@@ -26,7 +26,7 @@
             <div class="col-sm-10">
               <input
                 type="text"
-                placeholder="Supplier Number"
+                placeholder="Supplier Name"
                 v-model="form.name"
                 id="first_name"
                 name="first_name"

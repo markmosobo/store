@@ -17,8 +17,10 @@ return new class extends Migration
             $table->foreign('product_id')
             ->references('id')
             ->on('products');
-            $table->integer('quantity')->nullable();
-            $table->float('amount')->nullable();
+            $table->integer('pieces')->nullable();
+            $table->float('amount_payable')->nullable();
+            $table->float('amount_paid')->nullable();
+            $table->text('comments')->nullable();
             $table->integer('created_by')->unsigned();
             $table->foreign('created_by')
             ->references('id')

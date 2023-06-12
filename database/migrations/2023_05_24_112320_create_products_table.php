@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('size')->nullable();
             $table->integer('pieces')->nullable();
             $table->float('buying_price')->nullable();
+            $table->float('selling_price')->nullable();
             $table->integer('supplier_id')->unsigned();
             $table->foreign('supplier_id')
             ->references('id')

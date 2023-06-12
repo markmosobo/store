@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreProductRequest;
 use App\Http\Resources\ProductResource;
+use App\Models\Activity;
 use App\Models\Product;
 use App\Models\RestockProduct;
 use Illuminate\Http\Request;
@@ -48,7 +49,14 @@ class ProductController extends Controller
             'size' => $request->size,
             'pieces' => $request->pieces,
             'buying_price' => $request->buying_price,
-            'created_by' => 1
+            'selling_price' => $request->selling_price,
+            'created_by' => $request->created_by
+        ]);
+        //record activity
+        Activity::create([
+            'description' => 'checked in a new product',
+            'created_by' => $request->created_by,
+            'status' => 2
         ]);
 
         return response()->json([
@@ -83,9 +91,15 @@ class ProductController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(StoreProductRequest $request, Product $product)
+    public function update(Request $request, Product $product)
     {
         $product->update($request->all());
+        //record activity
+        Activity::create([
+            'description' => 'updated an existing product',
+            'created_by' => $request->created_by,
+            'status' => 3
+        ]);
         
         return new ProductResource($product);
     }
@@ -113,7 +127,22 @@ class ProductController extends Controller
             'pieces' =>$request->newpieces,
             'buying_price' => $request->buying_price,
             'supplier_id' => $request->supplier_id,
-            'created_by' => 1
+            'created_by' => $request->created_by
         ]);
+        //record activity
+        Activity::create([
+            'description' => 'restocked an existing product',
+            'created_by' => $request->created_by,
+            'status' => 4
+        ]);
+    }
+
+    public function reducePieces(Request $request, $id)
+    {
+        $product = Product::findOrFail($id);
+        $product->update(array('pieces' => $request->pieces));
+
+        $product->save();
+
     }
 }

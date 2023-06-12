@@ -6,48 +6,38 @@
                   <div class="card-body">
                     <h5 class="card-title">Product Details</h5>
                     <p class="card-text">
-                      <strong>Product Name: </strong>{{ product.name }} <br>
-                      <strong>Available Pieces:</strong> {{ product.pieces }} <br>
-                      <strong>Current Price:</strong>KES.  {{ product.buying_price }}<br>
+                      Product Name: <strong>{{ product.name }} </strong><br>
+                      Available Pieces: <strong> {{ product.pieces }}</strong> <br>
+                      Current Price: <strong>KES.  {{ product.buying_price }}</strong><br>
                       <!-- <strong>Checked in by:</strong>  {{ product.user_first_name }} {{ product.user_last_name }}<br> -->
-                      <strong>Date In:</strong>  {{ format_date(product.created_at) }} <br>
-                      <form @submit.prevent="submit()">
-                      <div class="row-mb-3">
-                        <label for="inputPassword" class="form-label"><strong>Buying Price:</strong></label>
-                        <div class="col-sm-10">
-                          <input type="number" v-model="form.buying_price" class="form-control" id="inputNanme4">
-                          <div class="invalid-feedback">Please enter destination!</div>
+                      Date In: <strong>  {{ format_date(product.created_at) }}</strong> <br>
+                      <h5 class="card-title">Restock Details</h5>
+                      <form @submit.prevent="submit()" class="row g-3">
+                        <div class="col-md-6">
+                        <label for="inputEmail5" class="form-label">Pieces Bought</label>
+                        <input type="number" v-model="form.pieces" class="form-control" id="inputEmail5">
                         </div>
-                      </div>
-                      <div class="row-mb-3">
-                        <label for="inputPassword" class="form-label"><strong>Choose Supplier:</strong></label>
-                        <div class="col-sm-10">
-                          <select name="gate" v-model="form.supplier_id" class="form-select" id="">
-                              <option value="" selected>{{product.supplier_id ?? 'Select Supplier'}}</option>
-                              <option v-for="supplier in suppliers" :key="supplier.id"
-                              :value="product.id"
-                              :selected="product.id == form.supplier_id">{{supplier.name}}</option>
-
-                          </select>
-                          <div class="invalid-feedback">Please enter destination!</div>
+                        <div class="col-md-6">
+                        <label for="inputPassword5" class="form-label">Buying Price</label><br>
+                        <input type="number" v-model="form.buying_price" class="form-control" id="inputEmail5">
                         </div>
-                      </div>
-                      <div class="row-mb-3">
-                        <label for="inputPassword" class="form-label"><strong>No. of Pieces:</strong></label>
-                        <div class="col-sm-10">
-                          <input type="number" v-model="form.pieces" class="form-control" id="inputNanme4">
-                          <div class="invalid-feedback">Please enter destination!</div>
+                        <div class="col-md-6">
+                        <label for="inputEmail5" class="form-label">Supplier</label>
+                        <select name="location" v-model="form.supplier_id" class="form-select" id="">
+                            <option value="0" disabled selected>Select Supplier</option>
+                            <option v-for="supplier in suppliers" :value="supplier.id"
+                            :selected="supplier.id == form.supplier_id" :key="supplier.id">{{ supplier.name}}</option>
+ 
+                         </select>
                         </div>
-                      </div>
-                      <div class="row mb-3"></div>
-                      <div class="col-lg-12 felx mt-4 row">
-                          <div class="col-sm-6 col-lg-6">
-                          <button @click.prevent="cancel()" class="btn btn-dark">Back</button>
-                          </div>
-                          <div class="col-sm-6 col-lg-6 text-end">
-                          <button type="submit" class="btn btn-primary">Submit</button>
-                          </div>
-                      </div>
+                        <div class="col-md-6">
+                        <label for="inputPassword5" class="form-label">Comments</label>
+                        <input type="text" v-model="form.comments" class="form-control" id="inputPassword5" placeholder="Comments(optional)">
+                        </div>
+                        <div class="text-center">
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                        <button type="reset" @click="reset()" class="btn btn-secondary">Reset</button>
+                        </div>
                       </form>
 
                     </p>
@@ -58,13 +48,8 @@
               <div class="col-lg-6">
                 <div class="card mt-3">
                   <div class="card-body">
-                    <h5 class="card-title">User Details</h5>
-                    <p class="card-text">
-                      <strong>Name:</strong> {{ product.first_name }} {{ product.last_name }} <br>
-                      <strong>Phone Number:</strong> {{ product.phone_number }} <br>
-                      <strong>ID Number:</strong>  {{ product.id_no}} <br>
-                    </p>
-                   
+                    <h5 class="card-title">Product Photo</h5>
+                    <img :src="getPhoto() + product.image" class="img-thumbnail avatar"  alt="Product Image">                 
 
 
                   </div>
@@ -75,7 +60,7 @@
 
               
             </div>
-          </div>
+    </div>
 </template>
 
 <script>
@@ -90,7 +75,8 @@ export default {
             form: {
               buying_price: '',
               pieces: '',
-              supplier_id: ''
+              supplier_id: '',
+              created_by: ''
             }
         }
     },
@@ -99,6 +85,10 @@ export default {
           if(value){
             return moment(String(value)).format('MMM Do YYYY')
           }
+        },
+        getPhoto()
+        {
+            return "/products/";
         },
         getData(){
             axios.get('/api/products/'+this.$route.params.id).then((response) => {
@@ -122,7 +112,8 @@ export default {
             buying_price: this.form.buying_price,
             supplier_id: this.form.supplier_id,
             pieces : this.product.pieces + this.form.pieces,
-            newpieces : this.form.pieces
+            newpieces : this.form.pieces,
+            created_by: this.user.id
           };
           axios.post('/api/restockproducts/'+this.$route.params.id, payload).then((response) => {
             toast.fire(
@@ -130,8 +121,11 @@ export default {
                 'Product restocked!',
                 'success'
              )
-            console.log(response)
-          })
+          }).catch((error) => {
+            console.log(error)
+          });
+          this.$router.push('/products')
+
         },
         cancel(){
 
@@ -140,6 +134,10 @@ export default {
     mounted(){
         this.getData();
         this.loadSuppliers();
+        this.user = JSON.parse(localStorage.getItem('user'));
+        console.log("user",this.user)
+        this.form.created_by = this.user.id;
+
     }
 }
 </script>

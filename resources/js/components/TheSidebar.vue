@@ -5,7 +5,7 @@
     <ul class="sidebar-nav" id="sidebar-nav">
 
       <li class="nav-item">
-        <router-link to="/" custom v-slot="{ href, navigate, isActive }">
+        <router-link to="/dashboard" custom v-slot="{ href, navigate, isActive }">
                   <a
                     :href="href"
                     :class="{ active: isActive }"
@@ -14,6 +14,57 @@
                   >
           <i class="bi bi-grid"></i>
           <span>Dashboard</span>
+        </a>
+        </router-link>
+      </li><!-- End Dashboard Nav -->
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" data-bs-target="#charts-nav" data-bs-toggle="collapse" href="#" aria-expanded="false">
+          <i class="bi bi-menu-button-wide"></i><span>Products</span><i class="bi bi-chevron-down ms-auto"></i>
+        </a>
+        <ul id="charts-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav" style="">
+          <li>
+            <router-link to="/products" custom v-slot="{ href, navigate, isActive }">
+                  <a
+                    :href="href"
+                    :class="{ active: isActive }"
+                    class="nav-link"
+                    @click="navigate"
+                  >
+              <i class="bi bi-circle"></i><span>All Products</span>
+            </a>
+            </router-link>
+          </li>
+          <li v-show="user.role == 'admin'">
+            <router-link to="/restocked" custom v-slot="{ href, navigate, isActive }">
+                  <a
+                    :href="href"
+                    :class="{ active: isActive }"
+                    class="nav-link"
+                    @click="navigate"
+                  >
+              <i class="bi bi-circle"></i><span>Restocked</span>
+            </a>
+            </router-link>
+          </li>
+          <li>
+            <a href="charts-echarts.html">
+              <i class="bi bi-circle"></i><span>ECharts</span>
+            </a>
+          </li>
+        </ul>
+      </li>
+
+      <li class="nav-item">
+        <router-link to="/purchases" custom v-slot="{ href, navigate, isActive }">
+                  <a
+                    :href="href"
+                    :class="{ active: isActive }"
+                    class="nav-link"
+                    @click="navigate"
+                  >
+          <i class="bi bi-grid"></i>
+          <span>Purchases</span>
         </a>
         </router-link>
       </li><!-- End Dashboard Nav -->
@@ -46,8 +97,8 @@
         </router-link>
       </li><!-- End Dashboard Nav -->
 
-      <li class="nav-item">
-        <router-link to="/purchases" custom v-slot="{ href, navigate, isActive }">
+      <li v-show="user.role == 'admin'" class="nav-item">
+        <router-link to="/users" custom v-slot="{ href, navigate, isActive }">
                   <a
                     :href="href"
                     :class="{ active: isActive }"
@@ -55,7 +106,7 @@
                     @click="navigate"
                   >
           <i class="bi bi-grid"></i>
-          <span>Purchases</span>
+          <span>Users</span>
         </a>
         </router-link>
       </li><!-- End Dashboard Nav -->
@@ -151,6 +202,15 @@
 <script>
 export default {
   name: 'TheSidebar',
+  data(){
+    return {
+      user: []
+    }
+  },
+  mounted(){
+    this.user = JSON.parse(localStorage.getItem('user'));
+
+  }
   
 }
 </script>

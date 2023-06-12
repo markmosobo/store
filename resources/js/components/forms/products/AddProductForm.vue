@@ -20,6 +20,14 @@
                       class="form-control"
                    />
                    <div class="col-sm-6">
+                     <label for="validationCustom04" class="form-label">Name</label>
+                     <div class="col-sm-10">
+                        <input type="text" placeholder="Name*" id="title" v-model="form.name" name="title" class="form-control"
+                           required="" />
+                        <div class="invalid-feedback">Please enter name</div>
+                     </div>
+                  </div>
+                   <div class="col-sm-6">
                       <label for="validationCustom04" class="form-label"
                       >Category</label
                       >
@@ -32,18 +40,6 @@
                          </select>
  
                       <div class="invalid-feedback">Please enter category!</div>
-                      </div>
-                   </div>
-                   <div class="col-sm-6">
-                      <label for="inputPassword" class="form-label">Supplier</label>
-                      <div class="col-sm-10">
-                         <select name="location" v-model="form.supplier_id" class="form-select" id="">
-                            <option value="0" disabled selected>Select Supplier</option>
-                            <option v-for="supplier in suppliers" :value="supplier.id"
-                            :selected="supplier.id == form.supplier_id" :key="supplier.id">{{ supplier.name}}</option>
- 
-                         </select>
-                         <div class="invalid-feedback">Please enter supplier!</div>
                       </div>
                    </div>
  
@@ -59,6 +55,14 @@
                       <div class="invalid-feedback">Please enter photo!</div>
                       </div>
                    </div>
+                   <div class="col-sm-6">
+                  <label for="validationCustom04" class="form-label">Number of Pieces</label>
+                  <div class="col-sm-10">
+                     <input type="number" placeholder="No of pieces*" id="address" v-model="form.pieces" name="address" class="form-control"
+                        required="" />
+                     <div class="invalid-feedback">Please enter no</div>
+                  </div>
+                  </div>
                 </div>
              </div>
              <!--  button -->
@@ -80,18 +84,22 @@
                 <div v-if="message" class="alert alert-danger">{{ message }}</div>
                 <div v-if="successMessage" class="alert alert-success">{{ successMessage }}</div>
                 <div class="form-group row">
-                <div class="col-sm-6">
-                   <label for="validationCustom04" class="form-label">Name</label>
-                   <div class="col-sm-10">
-                      <input type="text" placeholder="Name*" id="title" v-model="form.name" name="title" class="form-control"
-                         required="" />
-                      <div class="invalid-feedback">Please enter name</div>
+                  <div class="col-sm-6">
+                      <label for="inputPassword" class="form-label">Supplier</label>
+                      <div class="col-sm-10">
+                         <select name="location" v-model="form.supplier_id" class="form-select" id="">
+                            <option value="0" disabled selected>Select Supplier</option>
+                            <option v-for="supplier in suppliers" :value="supplier.id"
+                            :selected="supplier.id == form.supplier_id" :key="supplier.id">{{ supplier.name}}</option>
+ 
+                         </select>
+                         <div class="invalid-feedback">Please enter supplier!</div>
+                      </div>
                    </div>
-                </div>
                 <div class="col-sm-6">
                    <label for="validationCustom04" class="form-label">Size</label>
                    <div class="col-sm-10">
-                      <input type="text" placeholder="Size*" v-model="form.size" id="location" name="location" class="form-control"
+                      <input type="text" placeholder="Size" v-model="form.size" id="location" name="location" class="form-control"
                          required="" />
                       <div class="invalid-feedback">Please enter size!</div>
                    </div>
@@ -100,21 +108,21 @@
                 <div class="row mb-3"></div>
  
                 <div class="form-group row">
-                   <div class="col-sm-6">
-                   <label for="validationCustom04" class="form-label">Number of Pieces</label>
-                   <div class="col-sm-10">
-                      <input type="number" placeholder="No of pieces*" id="address" v-model="form.pieces" name="address" class="form-control"
-                         required="" />
-                      <div class="invalid-feedback">Please enter no</div>
-                   </div>
-                </div>
                 <div class="col-sm-6">
                    <label for="validationCustom04" class="form-label">Buying Price</label>
                    <div class="col-sm-10">
                       <input type="text" placeholder="Buying Price*" v-model="form.buying_price" id="estate_name" name="estate_name" class="form-control"
                          required="" />
                       <div class="invalid-feedback">Please enter price!</div>
-                   </div>_
+                   </div>
+                </div>
+                <div class="col-sm-6">
+               <label for="validationCustom04" class="form-label">Selling Price</label>
+               <div class="col-sm-10">
+                  <input type="text" placeholder="Selling Price*" id="address" v-model="form.selling_price" name="address" class="form-control"
+                     required="" />
+                  <div class="invalid-feedback">Please enter price</div>
+               </div>
                 </div>
                 </div>
                 <div class="row mb-3"></div>
@@ -165,9 +173,10 @@
           size: '',
           pieces: '',
           buying_price: '',
+          selling_price: '',
           name: '',
           image: '',
-          created_by: 1,
+          created_by: '',
           
           },
           message: "",
@@ -225,12 +234,17 @@
              //    'error'
              // )
           });
+          this.$router.push('/products')
+
  
        }
  
     },
     mounted() {
        this.loadLists();
+       this.user = JSON.parse(localStorage.getItem('user'));
+       this.form.created_by = this.user.id;
+
     }
  
  }

@@ -23,6 +23,7 @@ return new class extends Migration
             ->on('suppliers');
             $table->integer('pieces')->nullable();
             $table->float('buying_price')->nullable();
+            $table->text('comments')->nullable();
             $table->integer('created_by')->unsigned();
             $table->foreign('created_by')
             ->references('id')

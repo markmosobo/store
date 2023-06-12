@@ -40,9 +40,15 @@ class SupplierController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Supplier $supplier)
+    public function show(Request $request, $id)
     {
-        //
+        $supplier = Supplier::findOrFail($id);
+
+        return response()->json([
+            'status' => true,
+            'message' => "success",
+            'supplier' => $supplier
+        ], 200);
     }
 
     /**
