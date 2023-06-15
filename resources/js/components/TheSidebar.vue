@@ -64,7 +64,7 @@
                     @click="navigate"
                   >
           <i class="bi bi-grid"></i>
-          <span>Purchases</span>
+          <span>Sales</span>
         </a>
         </router-link>
       </li><!-- End Dashboard Nav -->

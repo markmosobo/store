@@ -10,7 +10,7 @@
                 <div class="card-body pb-0">
 
                 <h5 class="card-title">All Products <span>| Products in the building today</span></h5>
-                <p class="card-text">
+                <p v-show="user.role == 'storekeeper' || user.role == 'admin'" class="card-text">
                 
                 <!-- <a href="visitors.php" class="btn btn-primary" >Add Visitor</a> -->
                 <router-link to="/add-product" custom v-slot="{ href, navigate, isActive }">
@@ -58,9 +58,9 @@
                             </button>
                             <div class="dropdown-menu" aria-labelledby="btnGroupDrop1" style="">
                                 <a @click="navigateTo('/viewproduct/'+product.id )" class="dropdown-item" href="#"><i class="ri-eye-fill mr-2"></i>View</a>
-                                <a @click="navigateTo('/editproduct/'+product.id )" class="dropdown-item" href="#"><i class="ri-pencil-fill mr-2"></i>Edit</a>
-                                <a @click="restockProduct(product.id)" class="dropdown-item" href="#"><i class="ri-add-fill mr-2"></i>Restock</a>   
-                                <a @click="deleteProduct(product.id)" class="dropdown-item" href="#"><i class="ri-delete-bin-6-fill mr-2"></i>Delete</a>   
+                                <a v-show="user.role == 'storekeeper' || user.role == 'admin'" @click="navigateTo('/editproduct/'+product.id )" class="dropdown-item" href="#"><i class="ri-pencil-fill mr-2"></i>Edit</a>
+                                <a v-show="user.role == 'storekeeper' || user.role == 'admin'" @click="restockProduct(product.id)" class="dropdown-item" href="#"><i class="ri-add-fill mr-2"></i>Restock</a>   
+                                <!-- <a @click="deleteProduct(product.id)" class="dropdown-item" href="#"><i class="ri-delete-bin-6-fill mr-2"></i>Delete</a>    -->
                             </div>
                         </div>
                     </td>

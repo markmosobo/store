@@ -87,14 +87,23 @@ class PurchaseController extends Controller
         //
     }
 
-    public function salesTotal()
+    public function myPurchases(Request $request, $id)
     {
-        $total = Purchase::whereDay('created_at', now()->day)->sum('amount_paid');
-
+        $mypurchases = Purchase::whereDay('created_at', now()->day)->where('created_by',$id)->get();
         return response()->json([
             'status' => 200,
             'message' => 'success',
-            'total' => $total
+            'mypurchases' => $mypurchases
+        ]);
+    }
+
+    public function mySalesTotal(Request $request, $id)
+    {
+        $mysalestotal = Purchase::where('created_by','=',$id)->whereDay('created_at', now()->day)->sum('amount_paid');
+        return response()->json([
+            'status' => 200,
+            'message' => 'success',
+            'mysalestotal' => $mysalestotal
         ]);
     }
 }

@@ -96,6 +96,7 @@
                 <select name="category" v-model="form.role" class="form-select" id="">
                     <option value="0" disabled selected>Select Role</option>
                     <option value="admin">Admin</option>
+                    <option value="storekeeper">Storekeeper</option>
                     <option value="user">User</option>
 
                 </select>

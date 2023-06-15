@@ -20,7 +20,32 @@ import EditUser from '../views/users/EditUser.vue'
 import ViewUser from '../views/users/ViewUser.vue'
 import Login from '../views/Login.vue'
 import Profile from '../views/Profile.vue'
-
+import TodayPurchases from '../views/purchases/TodayPurchases.vue'
+import WeekPurchases from '../views/purchases/WeekPurchases.vue'
+import MonthPurchases from '../views/purchases/MonthPurchases.vue'
+import YearPurchases from '../views/purchases/YearPurchases.vue'
+import QuarterlyPurchases from '../views/purchases/QuarterlyPurchases.vue'
+import AllPurchases from '../views/purchases/AllPurchases.vue'
+import TwentyFourPurchases from '../views/purchases/TwentyFourPurchases.vue'
+import YesterdayPurchases from '../views/purchases/YesterdayPurchases.vue'
+import LastSevenPurchases from '../views/purchases/LastSevenPurchases.vue'
+import LastThirtyPurchases from '../views/purchases/LastThirtyPurchases.vue'
+import LastNinetyPurchases from '../views/purchases/LastNinetyPurchases.vue'
+import LastMonthPurchases from '../views/purchases/LastMonthPurchases.vue'
+import LastYearPurchases from '../views/purchases/LastYearPurchases.vue'
+import TodayRevenue from '../views/purchases/TodayRevenue.vue'
+import WeekRevenue from '../views/purchases/WeekRevenue.vue'
+import MonthRevenue from '../views/purchases/MonthRevenue.vue'
+import YearRevenue from '../views/purchases/YearRevenue.vue'
+import QuarterlyRevenue from '../views/purchases/QuarterlyRevenue.vue'
+import AllRevenue from '../views/purchases/AllRevenue.vue'
+import TwentyFourRevenue from '../views/purchases/TwentyFourRevenue.vue'
+import YesterdayRevenue from '../views/purchases/YesterdayRevenue.vue'
+import LastSevenRevenue from '../views/purchases/LastSevenRevenue.vue'
+import LastThirtyRevenue from '../views/purchases/LastThirtyRevenue.vue'
+import LastNinetyRevenue from '../views/purchases/LastNinetyRevenue.vue'
+import LastMonthRevenue from '../views/purchases/LastMonthRevenue.vue'
+import LastYearRevenue from '../views/purchases/LastYearRevenue.vue'
 
 const routes = [
     {
@@ -127,6 +152,137 @@ const routes = [
         path:'/edituser/:id',
         name: 'edit-user',
         component: EditUser
+    },
+    {
+        path:'/purchasestoday',
+        name: 'purchasestoday',
+        component: TodayPurchases
+    },
+    {
+        path:'/purchasesweek',
+        name: 'purchasesweek',
+        component: WeekPurchases
+    },
+    {
+        path:'/purchasesmonth',
+        name: 'purchasesmonth',
+        component: MonthPurchases
+    },
+    {
+        path:'/purchasesyear',
+        name: 'purchasesyear',
+        component: YearPurchases
+    },
+    {
+        path:'/purchasesquarter',
+        name: 'purchasesquarter',
+        component: QuarterlyPurchases
+    },
+    {
+        path:'/purchasesall',
+        name: 'purchasesall',
+        component: AllPurchases
+    },
+    {
+        path:'/purchasestwentyfour',
+        name: 'purchasestwentyfour',
+        component: TwentyFourPurchases
+    },
+    {
+        path:'/purchasesyesterday',
+        name: 'purchasesyesterday',
+        component: YesterdayPurchases
+    },
+    {
+        path:'/purchaseslastseven',
+        name: 'purchaseslastseven',
+        component: LastSevenPurchases
+    },
+    {
+        path:'/purchaseslastthirty',
+        name: 'purchaseslastthirty',
+        component: LastThirtyPurchases
+    },
+    {
+        path:'/purchaseslastninety',
+        name: 'purchaseslastninety',
+        component: LastNinetyPurchases
+    },
+    {
+        path:'/purchaseslastmonth',
+        name: 'purchaseslastmonth',
+        component: LastMonthPurchases
+    },
+    {
+        path:'/purchaseslastyear',
+        name: 'purchaseslastyear',
+        component: LastYearPurchases
+    },
+
+    {
+        path:'/revenuetoday',
+        name: 'revenuetoday',
+        component: TodayRevenue
+    },
+    {
+        path:'/revenueweek',
+        name: 'revenueweek',
+        component: WeekRevenue
+    },
+    {
+        path:'/revenuemonth',
+        name: 'revenuemonth',
+        component: MonthRevenue
+    },
+    {
+        path:'/revenueyear',
+        name: 'revenueyear',
+        component: YearRevenue
+    },
+    {
+        path:'/revenuequarter',
+        name: 'revenuequarter',
+        component: QuarterlyRevenue
+    },
+    {
+        path:'/revenueall',
+        name: 'revenueall',
+        component: AllRevenue
+    },
+    {
+        path:'/revenuetwentyfour',
+        name: 'revenuetwentyfour',
+        component: TwentyFourRevenue
+    },
+    {
+        path:'/revenueyesterday',
+        name: 'revenueyesterday',
+        component: YesterdayRevenue
+    },
+    {
+        path:'/revenuelastseven',
+        name: 'revenuelastseven',
+        component: LastSevenRevenue
+    },
+    {
+        path:'/revenuelastthirty',
+        name: 'revenuelastthirty',
+        component: LastThirtyRevenue
+    },
+    {
+        path:'/revenuelastninety',
+        name: 'revenuelastninety',
+        component: LastNinetyRevenue
+    },
+    {
+        path:'/revenuelastmonth',
+        name: 'revenuelastmonth',
+        component: LastMonthRevenue
+    },
+    {
+        path:'/revenuelastyear',
+        name: 'revenuelastyear',
+        component: LastYearRevenue
     },
 
 ];

@@ -17,4 +17,14 @@ class ActivityController extends Controller
             'activities' => $activities
         ], 200);
     }
+
+    public function myActivity(Request $request, $id)
+    {
+        $activities = Activity::where('created_by',$id)->take(6)->get();
+        return response()->json([
+            'status' => true,
+            'message' => "success",
+            'activities' => $activities
+        ], 200);
+    }
 }

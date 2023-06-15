@@ -1,57 +1,63 @@
 <template>
     <TheMaster>
+
         <section class="section dashboard">
         <div class="row">
-            <!-- Checked in visitors -->
-            <div class="col-12">
-                <div class="card top-selling overflow-auto">
+            <div class="col-xxl-4 col-md-6">
+              <div class="card info-card sales-card">
 
-                <div class="card-body pb-0">
+                <div class="card-body">
+                  <h5 class="card-title">Collected Revenue <span>| All Time</span></h5>
 
-                <h5 class="card-title">All Products <span>| Products in the building today</span></h5>
+                  <div class="d-flex align-items-center">
+                    <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                      <i class="bi bi-cart"></i>
+                    </div>
+                    <div class="ps-3">
+                      <h6>KES. {{allrevenue}}</h6>
+                      <!-- <span class="text-success small pt-1 fw-bold">12%</span> <span class="text-muted small pt-2 ps-1">increase</span> -->
 
-                <table id="allProductsTable" class="table table-borderless datatable">
-                <thead>
-                    <tr>
-                    <!-- <th scope="col">No</th> -->
-                    <th scope="col">Preview</th>
-                    <th scope="col">Name</th>
-                    <th scope="col">Category</th>
-                    <th scope="col">Size</th>
-                    <th scope="col">Pieces</th>
-                    <th scope="col">S.Price(KES)</th>                
-                    <th scope="col">Supplier</th>
-                    <th scope="col">Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr  v-for="product in products" :key="product.id" >
-                    <!-- <th scope="col">{{visit.id}}</th> -->
-                    <th scope="row"><a href="#">
-                        <img :src="getPhoto() + product.image" />
-                    </a></th>
-                    <td scope="col">{{product.name}}</td>
-                    <td scope="col">{{product.category['name']}}</td>
-                    <td scope="col">{{product.size}}</td>
-                    <td scope="col">{{product.pieces}}</td>
-                    <td scope="col">{{product.selling_price}}</td>
-                    <td scope="col">{{product.supplier['name']}}</td>                
-                    <td>
-                        <button @click="checkoutProduct(product.id)" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#basicModal28">
-                            Checkout</button>
-                    </td>
-                    </tr>
-                </tbody>
-                </table>
+                    </div>
+                  </div>
                 </div>
-                </div>
+
+              </div>
             </div>
-            <!--End Checked in visitors -->
-        </div>
-        </section> 
 
-        <section class="section dashboard">
-        <div class="row">
+            <div class="col-xxl-4 col-md-6">
+              <div class="card info-card revenue-card">
+
+                <!-- <div class="filter">
+                  <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
+                  <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                    <li class="dropdown-header text-start">
+                      <h6>Filter</h6>
+                    </li>
+
+                    <li><a class="dropdown-item" href="#">Today</a></li>
+                    <li><a class="dropdown-item" href="#">This Month</a></li>
+                    <li><a class="dropdown-item" href="#">This Year</a></li>
+                  </ul>
+                </div> -->
+
+                <div class="card-body">
+                  <h5 class="card-title">Projected Revenue <span>| All Time</span></h5>
+
+                  <div class="d-flex align-items-center">
+                    <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                      <i class="bi bi-currency-dollar"></i>
+                    </div>
+                    <div class="ps-3">
+                      <h6>KES. {{allprojectedrevenue}}</h6>
+                      <span class="text-success small pt-1 fw-bold">{{projectedpercentage}}%</span> <span class="text-muted small pt-2 ps-1">discount</span>
+
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+
 
             <!-- Checked out visitors -->
             <div class="col-12">
@@ -59,7 +65,7 @@
 
             <div class="card-body pb-0">
 
-            <h5 class="card-title">Sales <span>| Products sold today</span></h5>
+            <h5 class="card-title">Revenue <span>| All products sold</span></h5>
             <p class="card-text">
             
             <!-- <a href="visitors.php" class="btn btn-primary" >Add Visitor</a> -->
@@ -76,11 +82,11 @@
                     <th scope="col">Amount Paid</th>               
                     <th v-show="user.role == 'admin'" scope="col">Check Out By</th>
                     <th scope="col">Comments</th>
-                    <th scope="col">Time Out</th>
+                    <th scope="col">Date Out</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr  v-for="product in todaypurchases" :key="product.id" >
+                    <tr  v-for="product in allpurchases" :key="product.id" >
                     <!-- <th scope="col">{{visit.id}}</th> -->
                     <th scope="row"><a href="#">
                         <img :src="getPhoto() + product.product['image']" />
@@ -115,8 +121,10 @@ import moment  from 'moment';
 export default({
     data(){
         return {
-            products: [],
-            todaypurchases: [],
+            allpurchases: [],
+            allrevenue: [],
+            allprojectedrevenue: [],
+            projectedpercentage: [],
             user: []
         }
     },
@@ -135,12 +143,14 @@ export default({
         },
         loadLists(){
             axios.get('api/lists').then((response) => {
-                this.products = response.data.lists.products;
-                this.todaypurchases = response.data.lists.todaypurchases;
-                console.log("dakl",this.checkedout)
-                setTimeout(() => {
-                    $("#allProductsTable").DataTable();
-                }, 10);
+                this.allpurchases = response.data.lists.allpurchases;
+                this.allrevenue = response.data.lists.allrevenue;
+                this.allprojectedrevenue = response.data.lists.allprojectedrevenue;
+                
+                this.revenuedifference = this.allprojectedrevenue - this.allrevenue;
+                this.projectedpercentage = 100 * (this.revenuedifference/this.allrevenue);
+                this.projectedpercentage = Number(this.projectedpercentage).toFixed(2);
+
                 setTimeout(() => {
                     $("#checkedoutTable").DataTable();
                 }, 10);

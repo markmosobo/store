@@ -40,5 +40,6 @@ Route::post('login', [AuthController::class, 'login'])->name('login');
 
 Route::put('profile/{id}',[ProfileController::class, 'update']);
 Route::put('changepassword/{id}',[ProfileController::class, 'changePassword']);
-Route::get('salestotal',[PurchaseController::class,'salesTotal']);
 Route::get('activities/{id}',[ActivityController::class,'activities']);
+Route::get('mypurchases/{id}',[PurchaseController::class,'myPurchases']);
+Route::get('mysalestotal/{id}',[PurchaseController::class,'mySalesTotal']);
