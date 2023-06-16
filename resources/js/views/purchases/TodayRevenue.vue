@@ -97,7 +97,7 @@
                       <i class="bi bi-currency-dollar"></i>
                     </div>
                     <div class="ps-3">
-                      <h6>KES. {{todayprojectedrevenue}}</h6>
+                      <h6>KES. {{todayprojectedrevenue.toLocaleString()}}</h6>
                       <span class="text-success small pt-1 fw-bold">{{projectedpercentage}}%</span> <span class="text-muted small pt-2 ps-1">discount</span>
 
                     </div>

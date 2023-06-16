@@ -50,14 +50,14 @@
                 </div>
 
                 <div class="card-body">
-                  <h5 class="card-title">Sales <span>| Last 7 Days</span></h5>
+                  <h5 class="card-title">Collected Revenue <span>| Last 7 Days</span></h5>
 
                   <div class="d-flex align-items-center">
                     <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
                       <i class="bi bi-currency-dollar"></i>
                     </div>
                     <div class="ps-3">
-                      <h6>KES. {{lastsevendaysrevenue}}</h6>
+                      <h6>KES. {{lastsevendaysrevenue.toLocaleString()}}</h6>
                       <!-- <span class="text-success small pt-1 fw-bold">12%</span> <span class="text-muted small pt-2 ps-1">increase</span> -->
 
                     </div>
@@ -92,7 +92,7 @@
                       <i class="bi bi-currency-dollar"></i>
                     </div>
                     <div class="ps-3">
-                      <h6>KES. {{lastsevendaysprojectedrevenue}}</h6>
+                      <h6>KES. {{lastsevendaysprojectedrevenue.toLocaleString()}}</h6>
                       <span class="text-success small pt-1 fw-bold">{{projectedpercentage}}%</span> <span class="text-muted small pt-2 ps-1">difference</span>
 
                     </div>

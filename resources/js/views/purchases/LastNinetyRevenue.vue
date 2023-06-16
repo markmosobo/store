@@ -58,7 +58,7 @@
                       <i class="bi bi-cart"></i>
                     </div>
                     <div class="ps-3">
-                      <h6>KES. {{lastninetydaysrevenue}}</h6>
+                      <h6>KES. {{lastninetydaysrevenue.toLocaleString()}}</h6>
                       <!-- <span class="text-success small pt-1 fw-bold">12%</span> <span class="text-muted small pt-2 ps-1">increase</span> -->
 
                     </div>
@@ -92,8 +92,8 @@
                       <i class="bi bi-currency-dollar"></i>
                     </div>
                     <div class="ps-3">
-                      <h6>KES. {{lastninetydaysprojectedrevenue}}</h6>
-                      <span class="text-success small pt-1 fw-bold">{{projectedpercentage}}%</span> <span class="text-muted small pt-2 ps-1">difference</span>
+                      <h6>KES. {{lastninetydaysprojectedrevenue.toLocaleString()}}</h6>
+                      <span class="text-success small pt-1 fw-bold">{{projectedpercentage}}%</span> <span class="text-muted small pt-2 ps-1">discount</span>
 
                     </div>
                   </div>
@@ -190,8 +190,9 @@ export default({
                 this.lastninetydayspurchases = response.data.lists.lastninetydayspurchases;
                 this.lastninetydaysrevenue = response.data.lists.lastninetydaysrevenue;
                 this.lastninetydaysprojectedrevenue = response.data.lists.lastninetydaysprojectedrevenue;
-                this.projecteddifference = this.lastninetyprojectedrevenue - this.lastninetydaysrevenue;
+                this.projecteddifference = this.lastninetydaysprojectedrevenue - this.lastninetydaysrevenue;
                 this.projectedpercentage = 100 * (this.projecteddifference/this.lastninetydaysrevenue);
+                this.projectedpercentage = Number(this.projectedpercentage).toFixed(2);
 
                 setTimeout(() => {
                     $("#checkedoutTable").DataTable();

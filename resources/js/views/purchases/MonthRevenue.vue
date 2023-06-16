@@ -60,7 +60,7 @@
                     </div>
                     <div class="ps-3">
                         <!--increase-->
-                       <h6>KES. {{monthrevenue}}</h6>
+                       <h6>KES. {{monthrevenue.toLocaleString()}}</h6>
                       <span v-if="monthrevenue > lastmonthrevenue" class="text-success small pt-1 fw-bold">{{revenuepercentage}}%</span>
                       <span v-if="monthrevenue > lastmonthrevenue" class="text-muted small pt-2 ps-1">increase</span>
                       <!--decrease-->
@@ -98,7 +98,7 @@
                       <i class="bi bi-currency-dollar"></i>
                     </div>
                     <div class="ps-3">
-                      <h6>KES. {{monthprojectedrevenue}}</h6>
+                      <h6>KES. {{monthprojectedrevenue.toLocaleString()}}</h6>
                       <span class="text-success small pt-1 fw-bold">{{projectedpercentage}}%</span> <span class="text-muted small pt-2 ps-1">difference</span>
 
                     </div>

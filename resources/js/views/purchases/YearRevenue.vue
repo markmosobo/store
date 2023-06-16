@@ -50,14 +50,14 @@
                 </div>
 
                 <div class="card-body">
-                  <h5 class="card-title">Revenue <span>| This Year</span></h5>
+                  <h5 class="card-title">Collected Revenue <span>| This Year</span></h5>
 
                   <div class="d-flex align-items-center">
                     <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
                       <i class="bi bi-cart"></i>
                     </div>
                     <div class="ps-3">
-                      <h6>KES. {{yearrevenue}}</h6>
+                      <h6>KES. {{yearrevenue.toLocaleString()}}</h6>
                       <span v-if="yearrevenue > lastyearrevenue" class="text-success small pt-1 fw-bold">{{revenuepercentage}}%</span>
                       <span v-if="yearrevenue > lastyearrevenue" class="text-muted small pt-2 ps-1">increase</span>
                       <!--decrease-->
@@ -96,7 +96,7 @@
                       <i class="bi bi-currency-dollar"></i>
                     </div>
                     <div class="ps-3">
-                      <h6>KES. {{yearprojectedrevenue}}</h6>
+                      <h6>KES. {{yearprojectedrevenue.toLocaleString()}}</h6>
                       <span class="text-success small pt-1 fw-bold">{{projectedpercentage}}%</span> <span class="text-muted small pt-2 ps-1">discount</span>
 
                     </div>

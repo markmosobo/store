@@ -176,7 +176,7 @@
                         <i class="bi bi-currency-dollar"></i>
                         </div>
                         <div class="ps-3">
-                        <h6>KES. {{todayrevenue}}</h6>
+                        <h6>KES. {{todayrevenue.toLocaleString()}}</h6>
                         <span v-if="todayrevenue > yesterdayrevenue" class="text-success small pt-1 fw-bold">{{revenuepercentage}}%</span>
                         <span v-if="todayrevenue > yesterdayrevenue" class="text-muted small pt-2 ps-1">increase</span>
                         <!--decrease-->
@@ -203,9 +203,39 @@
                         <h6>Filter</h6>
                         </li>
 
-                        <li><a class="dropdown-item" href="#">Today</a></li>
-                        <li><a class="dropdown-item" href="#">This Month</a></li>
-                        <li><a class="dropdown-item" href="#">This Year</a></li>
+                        <li>
+                            <router-link to="/products" custom v-slot="{ href, navigate, isActive }">
+                            <a
+                                :href="href"
+                                :class="{ active: isActive }"
+                                class="dropdown-item"
+                                @click="navigate"
+                            >
+                            All Products</a>
+                        </router-link>
+                        </li>
+                        <li>
+                            <router-link to="/restockedtoday" custom v-slot="{ href, navigate, isActive }">
+                            <a
+                                :href="href"
+                                :class="{ active: isActive }"
+                                class="dropdown-item"
+                                @click="navigate"
+                            >
+                            Restocked Today</a>
+                        </router-link>
+                        </li>
+                        <li>
+                            <router-link to="/restocked" custom v-slot="{ href, navigate, isActive }">
+                            <a
+                                :href="href"
+                                :class="{ active: isActive }"
+                                class="dropdown-item"
+                                @click="navigate"
+                            >
+                            All Restocks</a>
+                        </router-link>
+                        </li>
                     </ul>
                     </div>
 
@@ -256,7 +286,7 @@
                 <div class="activity">
 
                     <div v-for="activity in activities" :key="activity.id" class="activity-item d-flex">
-                    <div class="activite-label">{{activity.created_at - new Date()}}</div>
+                    <div class="activite-label">{{dateTime(activity.created_at)}}</div>
                     <i v-if="activity.status == 1" class="bi bi-circle-fill activity-badge text-success align-self-start"></i>
                     <i v-if="activity.status == 2" class="bi bi-circle-fill activity-badge text-danger align-self-start"></i>
                     <i v-if="activity.status == 3" class="bi bi-circle-fill activity-badge text-primary align-self-start"></i>
@@ -425,7 +455,7 @@
                 <div class="activity">
 
                     <div v-for="activity in activities" :key="activity.id" class="activity-item d-flex">
-                    <div class="activite-label">{{activity.created_at - new Date()}}</div>
+                    <div class="activite-label">{{dateTime(activity.created_at)}}</div>
                     <i v-if="activity.status == 1" class="bi bi-circle-fill activity-badge text-success align-self-start"></i>
                     <i v-if="activity.status == 2" class="bi bi-circle-fill activity-badge text-danger align-self-start"></i>
                     <i v-if="activity.status == 3" class="bi bi-circle-fill activity-badge text-primary align-self-start"></i>
@@ -477,7 +507,7 @@
                     </div>
 
                     <div class="card-body">
-                    <h5 class="card-title">Sales <span>| Today</span></h5>
+                    <h5 class="card-title">My Sales <span>| Today</span></h5>
 
                     <div class="d-flex align-items-center">
                         <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
@@ -512,14 +542,14 @@
                     </div>
 
                     <div class="card-body">
-                    <h5 class="card-title">Revenue <span>|My Collection Today</span></h5>
+                    <h5 class="card-title">Revenue <span>| My Collection Today</span></h5>
 
                     <div class="d-flex align-items-center">
                         <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
                         <i class="bi bi-currency-dollar"></i>
                         </div>
                         <div class="ps-3">
-                        <h6>KES. {{mysalestotal}}</h6>
+                        <h6>KES. {{mytodayrevenue}}</h6>
                         <!-- <span class="text-success small pt-1 fw-bold">8%</span> <span class="text-muted small pt-2 ps-1">increase</span> -->
 
                         </div>
@@ -594,7 +624,7 @@
                 <div class="activity">
 
                     <div v-for="activity in activities" :key="activity.id" class="activity-item d-flex">
-                    <div class="activite-label">{{activity.created_at - new Date()}}</div>
+                    <div class="activite-label">{{dateTime(activity.created_at)}}</div>
                     <i v-if="activity.status == 1" class="bi bi-circle-fill activity-badge text-success align-self-start"></i>
                     <i v-if="activity.status == 2" class="bi bi-circle-fill activity-badge text-danger align-self-start"></i>
                     <i v-if="activity.status == 3" class="bi bi-circle-fill activity-badge text-primary align-self-start"></i>
@@ -657,7 +687,11 @@ export default({
             yesterdaypurchases: [],
             activities: [],
             mypurchases: [],
-            mysalestotal: [],
+            mytodayrevenue: [],
+            myyesterdayrevenue: [],
+            myrevenuepercentage: [],
+            mysalespercentage: [],
+            myrecentactivities: [],
             user: [],
             salespercentage: [],
             revenuepercentage: []
@@ -667,6 +701,9 @@ export default({
         TheMaster
     },
     methods: {
+        dateTime(value) {
+        return moment(String(value)).startOf('day').fromNow();;
+        },
         navigateTo(location){
             this.$router.push(location)
         },
@@ -687,8 +724,8 @@ export default({
                 console.log(error)
             });
             axios.get('api/mysalestotal/'+this.user.id).then((response) => {
-                this.mysalestotal = response.data.mysalestotal;
-                console.log("mysalestotal",this.mysalestotal)
+                this.myrevenuetoday = response.data.mysalestotal;
+                console.log("mytodayrevenue",this.mytodayrevenue)
             }).catch((error) => {
                 console.log(error)
             });

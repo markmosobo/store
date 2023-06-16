@@ -19,6 +19,7 @@ class ListController extends Controller
     {
         $restocked = RestockProduct::with('product','supplier','user')->whereDay('created_at', now()->day)->get();
         $allrestocked = RestockProduct::with('product','supplier','user')->get();
+        $restockedtoday = RestockProduct::with('product','supplier','user')->whereDay('created_at', now()->day)->get();
         $products = Product::with('supplier','category','user')->get();
 
         $todaypurchases = Purchase::with('product','user')->whereDay('created_at', now()->day)->get();
@@ -109,6 +110,7 @@ class ListController extends Controller
                 "suppliers" => Supplier::all(),
                 "restocked" => $restocked,
                 "allrestocked" => $allrestocked,
+                "restockedtoday" => $restockedtoday,
                 "todaypurchases" => $todaypurchases,
                 "weekpurchases" => $weekpurchases,
                 "monthpurchases" => $monthpurchases,

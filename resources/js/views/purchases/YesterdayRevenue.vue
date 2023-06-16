@@ -57,7 +57,7 @@
                       <i class="bi bi-currency-dollar"></i>
                     </div>
                     <div class="ps-3">
-                      <h6>KES. {{yesterdayrevenue}}</h6>
+                      <h6>KES. {{yesterdayrevenue.toLocaleString()}}</h6>
                       <!-- <span class="text-success small pt-1 fw-bold">12%</span> <span class="text-muted small pt-2 ps-1">increase</span> -->
 
                     </div>
@@ -78,8 +78,8 @@
                         <i class="bi bi-currency-dollar"></i>
                     </div>
                     <div class="ps-3">
-                        <h6>KES. {{yesterdayprojectedrevenue}}</h6>
-                        <span class="text-success small pt-1 fw-bold">{{projectedpercentage}}%</span> <span class="text-muted small pt-2 ps-1">difference</span>
+                        <h6>KES. {{yesterdayprojectedrevenue.toLocaleString()}}</h6>
+                        <span class="text-success small pt-1 fw-bold">{{projectedpercentage}}%</span> <span class="text-muted small pt-2 ps-1">discount</span>
 
                     </div>
                     </div>
@@ -177,6 +177,7 @@ export default({
                 this.yesterdayprojectedrevenue = response.data.lists.yesterdayprojectedrevenue;
                 this.projecteddifference = this.yesterdayrevenue - this.yesterdayprojectedrevenue;
                 this.projectedpercentage = 100 * (this.projecteddifference/this.yesterdayrevenue);
+                this.projectedpercentage = Number(this.projectedpercentage).toFixed(2);
 
                 setTimeout(() => {
                     $("#checkedoutTable").DataTable();

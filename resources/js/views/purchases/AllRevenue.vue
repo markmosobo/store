@@ -14,7 +14,7 @@
                       <i class="bi bi-cart"></i>
                     </div>
                     <div class="ps-3">
-                      <h6>KES. {{allrevenue}}</h6>
+                      <h6>KES. {{allrevenue.toLocaleString()}}</h6>
                       <!-- <span class="text-success small pt-1 fw-bold">12%</span> <span class="text-muted small pt-2 ps-1">increase</span> -->
 
                     </div>
@@ -48,7 +48,7 @@
                       <i class="bi bi-currency-dollar"></i>
                     </div>
                     <div class="ps-3">
-                      <h6>KES. {{allprojectedrevenue}}</h6>
+                      <h6>KES. {{allprojectedrevenue.toLocaleString()}}</h6>
                       <span class="text-success small pt-1 fw-bold">{{projectedpercentage}}%</span> <span class="text-muted small pt-2 ps-1">discount</span>
 
                     </div>

@@ -6,6 +6,7 @@ import Purchases from '../views/purchases/Purchases.vue'
 import Users from '../views/users/Users.vue'
 import Products from '../views/products/Products.vue'
 import Restocked from '../views/products/Restocked.vue'
+import RestockedToday from '../views/products/RestockedToday.vue'
 import AddCategory from '../views/categories/AddCategory.vue'
 import AddSupplier from '../views/suppliers/AddSupplier.vue'
 import AddProduct from '../views/products/AddProduct.vue'
@@ -72,6 +73,11 @@ const routes = [
         path:'/restocked',
         name: 'restocked',
         component: Restocked
+    },
+    {
+        path:'/restockedtoday',
+        name: 'restockedtoday',
+        component: RestockedToday
     },
     {
         path:'/add-product',
