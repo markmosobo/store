@@ -137,7 +137,6 @@ export default({
             axios.get('api/lists').then((response) => {
                 this.products = response.data.lists.products;
                 this.todaypurchases = response.data.lists.todaypurchases;
-                console.log("dakl",this.checkedout)
                 setTimeout(() => {
                     $("#allProductsTable").DataTable();
                 }, 10);

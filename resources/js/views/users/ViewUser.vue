@@ -1,45 +1,147 @@
 <template>
     <TheMaster>
-        <div class="container mt-3">
-            <div class="row">
-              <div class="col-lg-6">
-                <div class="card">
-                  <div class="card-body">
-                    <h5 class="card-title">User Details</h5>
-                    <p class="card-text">
-                      User ID: <strong>{{ user.id }} </strong><br>
-                      Full Name: <strong> {{ user.first_name }} {{ user.last_name }} </strong><br>
-                      Phone No: <strong>  {{ user.phone ?? 'N/A' }}</strong><br>
-                      Email Address: <strong>  {{ user.email ?? 'N/A' }}</strong> <br>
-                      Role: <strong> {{ user.role }}</strong> <br>
-                      Added On: <strong> {{ format_date(user.created_at) }}</strong> <br>
-                    </p>
-                  </div>
-                </div>
-                <div class="card">
-                  <div class="card-body">
-                    <h5 class="card-title">Photo</h5>
-                    <!-- <img :src="getPhoto() + product.image" class="img-thumbnail avatar"  alt="Product Image"> -->
 
+        <section class="section dashboard">
+          <div class="row">
+
+            <!-- Left side columns -->
+            <div class="col-lg-8">
+              <div class="row">
+
+                <!-- Customers Card -->
+                <div class="col-xxl-4 col-xl-12">
+
+                  <div class="card info-card customers-card">
+
+                    <!-- <div class="filter">
+                      <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
+                      <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                        <li class="dropdown-header text-start">
+                          <h6>Filter</h6>
+                        </li>
+
+                        <li><a class="dropdown-item" href="#">Today</a></li>
+                        <li><a class="dropdown-item" href="#">This Month</a></li>
+                        <li><a class="dropdown-item" href="#">This Year</a></li>
+                      </ul>
+                    </div> -->
+
+                    <div class="card-body">
+                      <h5 class="card-title">User Details <span>| All Time</span></h5>
+
+                      <div class="d-flex align-items-center">
+                        <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                          <i class="bi bi-person"></i>
+                        </div>
+                        <div class="ps-3">
+                          <h6>{{user.first_name}} {{user.last_name}}</h6>
+                          <span class="text-danger small pt-1 fw-bold">{{user.role}}</span> 
+
+                        </div>
+                      </div>
+
+                    </div>
                   </div>
-                </div>
+
+                </div><!-- End Customers Card -->
+
+                <div class="col-xl-12">
+                    <div class="card">
+                      <div class="card-body">
+                        <h5 class="card-title">Additional Details</h5>
+                        <p class="card-text">
+                          Phone No: <strong>  {{ user.phone ?? 'N/A' }}</strong><br>
+                          Email Address: <strong>  {{ user.email ?? 'N/A' }}</strong> <br>
+                          Role: <strong> {{ user.role }}</strong> <br>
+                          Added On: <strong> {{ format_date(user.created_at) }}</strong> <br>
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+
               </div>
-              <div class="col-lg-6">
-                <div class="card">
-                  <div class="card-body">
-                    <h5 class="card-title">Recent Activity <span>| Today</span></h5>
+            </div><!-- End Left side columns -->
 
-                    <ul class="list-group">
-                     <li v-for="activity in activities" :key="activity.id" class="list-group-item"> {{activity.description}} at {{activity.created_at}} </li>
-    
-                    </ul>
-                  </div>
+            <!-- Right side columns -->
+            <div class="col-lg-4">
+
+              <!-- Recent Activity -->
+              <div class="card">
+                <div class="filter">
+                  <a class="icon" href="#" data-bs-toggle="dropdown"><i class="bi bi-three-dots"></i></a>
+                  <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                    <li class="dropdown-header text-start">
+                      <h6>Filter</h6>
+                    </li>
+
+                    <li><a class="dropdown-item" href="#">Today</a></li>
+                    <li><a class="dropdown-item" href="#">This Month</a></li>
+                    <li><a class="dropdown-item" href="#">This Year</a></li>
+                  </ul>
                 </div>
-              </div> 
-              
-              
-            </div>
-        </div>
+
+                <div class="card-body">
+                  <h5 class="card-title">Recent Activity <span>| Today</span></h5>
+
+                  <div class="activity">
+
+                    <div class="activity-item d-flex">
+                      <div class="activite-label">32 min</div>
+                      <i class="bi bi-circle-fill activity-badge text-success align-self-start"></i>
+                      <div class="activity-content">
+                        Quia quae rerum <a href="#" class="fw-bold text-dark">explicabo officiis</a> beatae
+                      </div>
+                    </div><!-- End activity item-->
+
+                    <div class="activity-item d-flex">
+                      <div class="activite-label">56 min</div>
+                      <i class="bi bi-circle-fill activity-badge text-danger align-self-start"></i>
+                      <div class="activity-content">
+                        Voluptatem blanditiis blanditiis eveniet
+                      </div>
+                    </div><!-- End activity item-->
+
+                    <div class="activity-item d-flex">
+                      <div class="activite-label">2 hrs</div>
+                      <i class="bi bi-circle-fill activity-badge text-primary align-self-start"></i>
+                      <div class="activity-content">
+                        Voluptates corrupti molestias voluptatem
+                      </div>
+                    </div><!-- End activity item-->
+
+                    <div class="activity-item d-flex">
+                      <div class="activite-label">1 day</div>
+                      <i class="bi bi-circle-fill activity-badge text-info align-self-start"></i>
+                      <div class="activity-content">
+                        Tempore autem saepe <a href="#" class="fw-bold text-dark">occaecati voluptatem</a> tempore
+                      </div>
+                    </div><!-- End activity item-->
+
+                    <div class="activity-item d-flex">
+                      <div class="activite-label">2 days</div>
+                      <i class="bi bi-circle-fill activity-badge text-warning align-self-start"></i>
+                      <div class="activity-content">
+                        Est sit eum reiciendis exercitationem
+                      </div>
+                    </div><!-- End activity item-->
+
+                    <div class="activity-item d-flex">
+                      <div class="activite-label">4 weeks</div>
+                      <i class="bi bi-circle-fill activity-badge text-muted align-self-start"></i>
+                      <div class="activity-content">
+                        Dicta dolorem harum nulla eius. Ut quidem quidem sit quas
+                      </div>
+                    </div><!-- End activity item-->
+
+                  </div>
+
+                </div>
+              </div><!-- End Recent Activity -->
+
+            </div><!-- End Right side columns -->
+
+          </div>
+        </section>
     </TheMaster>
 </template>
 
@@ -59,6 +161,9 @@ export default {
     }
    },
    methods: {
+    dateTime(value) {
+        return moment(String(value)).format('LT');
+    },
     format_date(value){
         if(value){
           return moment(String(value)).format('MMM Do YYYY')
@@ -76,7 +181,7 @@ export default {
       })
     },
     loadLists(){
-        axios.get('/api/activities/'+this.$route.params.id,{
+        axios.get('/api/useractivities/'+this.$route.params.id,{
 
         }).then((response) => {
             this.activities = response.data.activities;

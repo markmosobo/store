@@ -15,6 +15,11 @@ use Carbon\Carbon;
 
 class ListController extends Controller
 {
+    // public function __construct()
+    // {
+    //     $this->middleware('auth:api');
+    // } 
+
     public function index()
     {
         $restocked = RestockProduct::with('product','supplier','user')->whereDay('created_at', now()->day)->get();
@@ -99,7 +104,6 @@ class ListController extends Controller
         $allrevenue = Purchase::select("*")->with('product','user')->sum('amount_paid');
         $allprojectedrevenue = Purchase::select("*")->with('product','user')->sum('amount_payable');
 
-
         $activities = Activity::latest()->with('user')->whereDay('created_at', now()->day)->take(6)->get();
         $allactivities = Activity::with('user')->get();
         $users = User::all();
@@ -152,6 +156,7 @@ class ListController extends Controller
                 "quarterlyprojectedrevenue" => $quarterlyprojectedrevenue,
                 "allrevenue" => $allrevenue,
                 "allprojectedrevenue" => $allprojectedrevenue,
+
                 "users" => $users,
                 "activities" =>$activities,
                 "allactivities" =>$allactivities

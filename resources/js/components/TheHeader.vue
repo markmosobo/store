@@ -239,7 +239,6 @@ import axios from 'axios';
       logout(){
         axios.get('api/logout').then((response) => {
           localStorage.removeItem('user');
-          console.log(response)
           this.$router.push('/login')
         }).catch((error) => {
           console.log(error)

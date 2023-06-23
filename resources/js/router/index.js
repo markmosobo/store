@@ -13,12 +13,14 @@ import AddProduct from '../views/products/AddProduct.vue'
 import AddPurchase from '../views/purchases/AddPurchase.vue'
 import RestockProduct from '../views/products/RestockProduct.vue'
 import ViewProduct from '../views/products/ViewProduct.vue'
+import ViewProductHistory from '../views/products/ViewProductHistory.vue'
 import EditProduct from '../views/products/EditProduct.vue'
 import EditCategory from '../views/categories/EditCategory.vue'
 import EditSupplier from '../views/suppliers/EditSupplier.vue'
 import AddUser from '../views/users/AddUser.vue'
 import EditUser from '../views/users/EditUser.vue'
 import ViewUser from '../views/users/ViewUser.vue'
+import ViewUserActivity from '../views/users/ViewUserActivity.vue'
 import Login from '../views/Login.vue'
 import Profile from '../views/Profile.vue'
 import TodayPurchases from '../views/purchases/TodayPurchases.vue'
@@ -47,11 +49,17 @@ import LastThirtyRevenue from '../views/purchases/LastThirtyRevenue.vue'
 import LastNinetyRevenue from '../views/purchases/LastNinetyRevenue.vue'
 import LastMonthRevenue from '../views/purchases/LastMonthRevenue.vue'
 import LastYearRevenue from '../views/purchases/LastYearRevenue.vue'
+import MyTodayPurchases from '../views/purchases/MyTodayPurchases.vue'
 
 const routes = [
     {
+        path:'/',
+        name: 'welcome',
+        component: Login
+    },
+    {
         path:'/dashboard',
-        name: 'index',
+        name: 'dashboard',
         component: Index
     },
     {
@@ -135,6 +143,11 @@ const routes = [
         component: ViewProduct
     },
     {
+        path:'/viewproducthistory/:id',
+        name: 'view-producthistory',
+        component: ViewProductHistory
+    },
+    {
         path:'/editproduct/:id',
         name: 'edit-product',
         component: EditProduct
@@ -153,6 +166,11 @@ const routes = [
         path:'/viewuser/:id',
         name: 'view-user',
         component: ViewUser
+    },
+    {
+        path:'/viewuseractivity/:id',
+        name: 'view-useractivity',
+        component: ViewUserActivity
     },
     {
         path:'/edituser/:id',
@@ -289,6 +307,12 @@ const routes = [
         path:'/revenuelastyear',
         name: 'revenuelastyear',
         component: LastYearRevenue
+    },
+
+    {
+        path:'/mypurchasestoday',
+        name: 'mypurchasestoday',
+        component: MyTodayPurchases
     },
 
 ];

@@ -60,7 +60,8 @@
                                   Action
                                   </button>
                                   <div class="dropdown-menu" aria-labelledby="btnGroupDrop1" style="">
-                                    <a @click="navigateTo('/viewuser/'+user.id )" class="dropdown-item" href="#"><i class="ri-eye-fill mr-2"></i>View</a>
+                                    <a @click="navigateTo('/viewuser/'+user.id )" class="dropdown-item" href="#"><i class="ri-eye-fill mr-2"></i>View Profile</a>
+                                    <a @click="navigateTo('/viewuseractivity/'+user.id )" class="dropdown-item" href="#"><i class="ri-eye-fill mr-2"></i>View Activity</a>
                                     <a @click="navigateTo('/edituser/'+user.id )" class="dropdown-item" href="#"><i class="ri-pencil-fill mr-2"></i>Edit</a>
                                     <a v-if="user.status == 2" @click="navigateTo('/edituser/'+user.id )" class="dropdown-item" href="#"><i class="ri-pencil-fill mr-2"></i>Reactivate</a>
                                     <a v-if="user.status == 1" @click="navigateTo('/edituser/'+user.id )" class="dropdown-item" href="#"><i class="ri-pencil-fill mr-2"></i>Deactivate</a>

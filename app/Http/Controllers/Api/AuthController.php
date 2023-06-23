@@ -13,6 +13,7 @@ use Illuminate\Support\Str;
 
 class AuthController extends Controller
 {
+
     private $apiToken;
     public function __construct()
      {

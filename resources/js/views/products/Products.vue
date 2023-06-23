@@ -58,6 +58,7 @@
                             </button>
                             <div class="dropdown-menu" aria-labelledby="btnGroupDrop1" style="">
                                 <a @click="navigateTo('/viewproduct/'+product.id )" class="dropdown-item" href="#"><i class="ri-eye-fill mr-2"></i>View</a>
+                                <a v-show="user.role == 'storekeeper' || user.role == 'admin'" @click="viewProductHistory(product.id)" class="dropdown-item" href="#"><i class="ri-eye-fill mr-2"></i>View History</a>   
                                 <a v-show="user.role == 'storekeeper' || user.role == 'admin'" @click="navigateTo('/editproduct/'+product.id )" class="dropdown-item" href="#"><i class="ri-pencil-fill mr-2"></i>Edit</a>
                                 <a v-show="user.role == 'storekeeper' || user.role == 'admin'" @click="restockProduct(product.id)" class="dropdown-item" href="#"><i class="ri-add-fill mr-2"></i>Restock</a>   
                                 <!-- <a @click="deleteProduct(product.id)" class="dropdown-item" href="#"><i class="ri-delete-bin-6-fill mr-2"></i>Delete</a>    -->
@@ -187,6 +188,9 @@ export default({
         },
         restockProduct(id){
             this.$router.push('/restockproduct/'+id)
+        },
+        viewProductHistory(id){
+            this.$router.push('/viewproducthistory/'+id)
         },
         deleteProduct(id){
             Swal.fire({

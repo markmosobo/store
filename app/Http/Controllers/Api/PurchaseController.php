@@ -5,12 +5,20 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\Purchase;
 use App\Models\Activity;
+use App\Models\User;
 use App\Http\Resources\PurchaseResource;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth; 
+use Illuminate\Support\Str;
 
 use Illuminate\Http\Request;
 
 class PurchaseController extends Controller
 {
+    // public function __construct()
+    // {
+    //     $this->middleware('auth:api');
+    // } 
     /**
      * Display a listing of the resource.
      */
@@ -87,23 +95,69 @@ class PurchaseController extends Controller
         //
     }
 
-    public function myPurchases(Request $request, $id)
+    public function myPurchases(Request $request)
     {
-        $mypurchases = Purchase::whereDay('created_at', now()->day)->where('created_by',$id)->get();
+        $user = Auth::user(); 
+        // $mytodaypurchases = Purchase::where('created_by',$user->id)->with('product','user')->whereDay('created_at', now()->day)->get();
+        // $myyesterdaypurchases = Purchase::where('created_by',$user->id)->select("*")->with('product','user')->where('created_by',$id)->whereBetween('created_at',
+        // [Carbon::now()->subDay()->startOfDay(), Carbon::now()->subDay()->endOfDay()])->get();
+
         return response()->json([
+            "lists" => [
             'status' => 200,
             'message' => 'success',
-            'mypurchases' => $mypurchases
+            'mytodaypurchases' => $user,
+            // 'myyesterdaypurchases' => $myyesterdaypurchases,
+            ]
         ]);
     }
 
-    public function mySalesTotal(Request $request, $id)
+    public function myRevenue(Request $request, $id)
     {
-        $mysalestotal = Purchase::where('created_by','=',$id)->whereDay('created_at', now()->day)->sum('amount_paid');
+        $mytodayrevenue = Purchase::where('created_by','=',$id)->whereDay('created_at', now()->day)->sum('amount_paid');
+        $myyesterdayrevenue = Purchase::select("*")->with('product','user')->where('created_by',$id)->whereBetween('created_at',
+        [Carbon::now()->subDay()->startOfDay(), Carbon::now()->subDay()->endOfDay()])->sum('amount_paid');
+
         return response()->json([
+            "lists" => [
             'status' => 200,
             'message' => 'success',
-            'mysalestotal' => $mysalestotal
+            'mytodayrevenue' => $mytodayrevenue,
+            'myyesterdayrevenue' => $myyesterdayrevenue,
+            ]
+        ]);
+    }
+
+    public function userPurchases(Request $request, $id)
+    {
+        // $user = Auth::user(); 
+        $usertodaypurchases = Purchase::where('created_by',$id)->with('product','user')->whereDay('created_at', now()->day)->get();
+        $useryesterdaypurchases = Purchase::where('created_by',$id)->select("*")->with('product','user')->where('created_by',$id)->whereBetween('created_at',
+        [Carbon::now()->subDay()->startOfDay(), Carbon::now()->subDay()->endOfDay()])->get();
+
+        return response()->json([
+            "lists" => [
+            'status' => 200,
+            'message' => 'success',
+            'usertodaypurchases' => $usertodaypurchases,
+            'useryesterdaypurchases' => $useryesterdaypurchases,
+            ]
+        ]);
+    }
+
+    public function userRevenue(Request $request, $id)
+    {
+        $usertodayrevenue = Purchase::where('created_by',$id)->whereDay('created_at', now()->day)->sum('amount_paid');
+        $useryesterdayrevenue = Purchase::select("*")->with('product','user')->where('created_by',$id)->whereBetween('created_at',
+        [Carbon::now()->subDay()->startOfDay(), Carbon::now()->subDay()->endOfDay()])->sum('amount_paid');
+
+        return response()->json([
+            "lists" => [
+            'status' => 200,
+            'message' => 'success',
+            'usertodayrevenue' => $usertodayrevenue,
+            'useryesterdayrevenue' => $useryesterdayrevenue,
+            ]
         ]);
     }
 }

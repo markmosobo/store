@@ -345,7 +345,7 @@
                         <i class="bi bi-cart"></i>
                         </div>
                         <div class="ps-3">
-                        <h6>{{mypurchases.length}}</h6>
+                        <h6>{{mytodaypurchases.length}}</h6>
                         <!-- <span class="text-success small pt-1 fw-bold">12%</span> <span class="text-muted small pt-2 ps-1">increase</span> -->
 
                         </div>
@@ -380,7 +380,7 @@
                         <i class="bi bi-currency-dollar"></i>
                         </div>
                         <div class="ps-3">
-                        <h6>KES. {{mysalestotal}}</h6>
+                        <h6>KES. {{mytodayrevenue}}</h6>
                         <!-- <span class="text-success small pt-1 fw-bold">8%</span> <span class="text-muted small pt-2 ps-1">increase</span> -->
 
                         </div>
@@ -500,7 +500,17 @@
                         <h6>Filter</h6>
                         </li>
 
-                        <li><a class="dropdown-item" href="#">Today</a></li>
+                        <li>
+                            <router-link to="/mypurchasestoday" custom v-slot="{ href, navigate, isActive }">
+                            <a
+                                :href="href"
+                                :class="{ active: isActive }"
+                                class="dropdown-item"
+                                @click="navigate"
+                            >
+                            Today</a>
+                            </router-link>
+                        </li>
                         <li><a class="dropdown-item" href="#">This Month</a></li>
                         <li><a class="dropdown-item" href="#">This Year</a></li>
                     </ul>
@@ -514,7 +524,7 @@
                         <i class="bi bi-cart"></i>
                         </div>
                         <div class="ps-3">
-                        <h6>{{mypurchases.length}}</h6>
+                        <h6>{{mytodaypurchases.length}}</h6>
                         <!-- <span class="text-success small pt-1 fw-bold">12%</span> <span class="text-muted small pt-2 ps-1">increase</span> -->
 
                         </div>
@@ -686,7 +696,8 @@ export default({
             todaypurchases: [],
             yesterdaypurchases: [],
             activities: [],
-            mypurchases: [],
+            mytodaypurchases: [],
+            myyesterdaypurchases: [],
             mytodayrevenue: [],
             myyesterdayrevenue: [],
             myrevenuepercentage: [],
@@ -702,7 +713,7 @@ export default({
     },
     methods: {
         dateTime(value) {
-        return moment(String(value)).startOf('day').fromNow();;
+        return moment(String(value)).format('LT');
         },
         navigateTo(location){
             this.$router.push(location)
@@ -717,15 +728,17 @@ export default({
             return "products/";
         },
         getData(){
-            axios.get('api/mypurchases/'+this.user.id).then((response) => {
-                this.mypurchases = response.data.mypurchases;
-                console.log("mypurchases",response)
+            axios.get('api/mypurchases').then((response) => {
+                this.mytodaypurchases = response.data.lists.mytodaypurchases;
+                this.myyesterdaypurchases = response.data.lists.myyesterdaypurchases;
+                this.mytodayrevenue = response.data.lists.mytodayrevenue;
+                this.myyesterdayrevenue = response.data.lists.myyesterdayrevenue;
+                console.log("mytodaypurchases",response)
             }).catch((error) => {
                 console.log(error)
             });
-            axios.get('api/mysalestotal/'+this.user.id).then((response) => {
-                this.myrevenuetoday = response.data.mysalestotal;
-                console.log("mytodayrevenue",this.mytodayrevenue)
+            axios.get('api/myrevenue/'+this.user.id).then((response) => {
+                this.mytodayrevenue = response.data.mytodayrevenue;
             }).catch((error) => {
                 console.log(error)
             });
